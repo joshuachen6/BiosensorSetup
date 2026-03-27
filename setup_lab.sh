@@ -7,12 +7,14 @@ read -p "Enter Machine Name (e.g., Mini-09, Studio-04, MBP-01): " MACHINE_NAME
 ACCOUNT_NAME=$(echo "$MACHINE_NAME" | tr '[:upper:]' '[:lower:]')
 
 # --- 2. INSTALL HOMEBREW ---
-if ! command -v brew &> /dev/null; then
-    echo "🍺 Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+HOMEBREW_PREFIX="/opt/homebrew"
+if [[ ! -f "$HOMEBREW_PREFIX/bin/brew" ]]; then
+    echo "🍺 Homebrew not found. Installing (Non-interactive)..."
+    /bin/bash -c "NONINTERACTIVE=1 $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 else
-    echo "✅ Homebrew already installed."
+    echo "✅ Homebrew is already installed at $HOMEBREW_PREFIX."
+    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
 # --- 3. SYSTEM PREFERENCES (Defaults) ---
