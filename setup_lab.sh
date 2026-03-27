@@ -27,7 +27,7 @@ osascript -e 'tell application "System Events" to tell appearance preferences to
 echo "📦 Installing Applications and Dependencies..."
 apps=(
     slack microsoft-teams notion tailscale 
-    visual-studio-code parsec realvnc-viewer
+    visual-studio-code parsec realvnc-vnc-viewer
 )
 brew install --cask "${apps[@]}"
 # Required system libraries for Python and Starship
